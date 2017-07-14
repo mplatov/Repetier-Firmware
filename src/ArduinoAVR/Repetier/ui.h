@@ -627,6 +627,10 @@ class UIDisplay {
 #endif
     char cwd[SD_MAX_FOLDER_DEPTH * LONG_FILENAME_LENGTH + 2];
     uint8_t folderLevel;
+	static void rgbLED(uint8_t red, uint8_t green, uint8_t blue);
+#if BEEPER_TYPE==3	
+	static void olp_beep(uint8_t type);
+#endif
 };
 extern UIDisplay uid;
 
@@ -2124,8 +2128,13 @@ inline void uiCheckSlowKeys(uint16_t &action) {}
   #define BEEP_SHORT {}
   #define BEEP_LONG {}
 #else
+#if BEEPER_TYPE==3
+#define BEEP_SHORT olp_beep(0x2);
+#define BEEP_LONG olp_beep(0x0);
+#else
   #define BEEP_SHORT beep(BEEPER_SHORT_SEQUENCE);
   #define BEEP_LONG beep(BEEPER_LONG_SEQUENCE);
+#endif
 #endif
 
 

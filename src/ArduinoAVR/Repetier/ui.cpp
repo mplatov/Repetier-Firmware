@@ -61,7 +61,7 @@ int zBabySteps = 0;
 
 void beep(uint8_t duration,uint8_t count)
 {
-#if FEATURE_BEEPER
+#if FEATURE_BEEPER && BEEPER_TYPE!=3
 #if BEEPER_TYPE!=0
 #if BEEPER_TYPE==1 && defined(BEEPER_PIN) && BEEPER_PIN>=0
     SET_OUTPUT(BEEPER_PIN);
@@ -941,6 +941,25 @@ void initializeLCD()
 #ifdef U8GLIB_SH1106_SW_SPI
 	u8g_InitSPI(&u8g,&u8g_dev_sh1106_128x64_sw_spi,  UI_DISPLAY_D4_PIN, UI_DISPLAY_ENABLE_PIN, UI_DISPLAY_RS_PIN, U8G_PIN_NONE, U8G_PIN_NONE);
 #endif
+#ifdef U8GLIB_SH1106_I2C
+	// custom init sequence for the OLP OLED display
+	HAL::pinMode(U8G_PI_RESET, 0x1);
+	HAL::pinMode(U8G_PI_CS, 0x1);
+	HAL::digitalWrite(U8G_PI_CS, 1);
+	// reset line 5
+	HAL::digitalWrite(U8G_PI_RESET, 0);
+	HAL::delayMilliseconds(5);
+	HAL::digitalWrite(U8G_PI_RESET, 1);
+	HAL::delayMilliseconds(5);
+	HAL::delayMicroseconds(200);
+
+	u8g_InitI2C(&u8g,&u8g_dev_sh1106_128x64_i2c,U8G_I2C_OPT_FAST);
+	
+	u8g_i2c_init(U8G_I2C_OPT_FAST);
+	
+	UIDisplay::rgbLED(0x1F, 0x2F, 0x2F);
+
+#endif
 #ifdef U8GLIB_KS0108_FAST
     u8g_Init8Bit(&u8g,&u8g_dev_ks0108_128x64_fast,UI_DISPLAY_D0_PIN,UI_DISPLAY_D1_PIN,UI_DISPLAY_D2_PIN,UI_DISPLAY_D3_PIN,UI_DISPLAY_D4_PIN,UI_DISPLAY_D5_PIN,UI_DISPLAY_D6_PIN,UI_DISPLAY_D7_PIN,UI_DISPLAY_ENABLE_PIN,UI_DISPLAY_CS1,UI_DISPLAY_CS2,
                  UI_DISPLAY_DI,UI_DISPLAY_RW_PIN,UI_DISPLAY_RESET_PIN);
@@ -1142,6 +1161,31 @@ void  UIDisplay::waitForKey()
         uiCheckSlowKeys(nextAction);
     }
 }
+
+void UIDisplay::rgbLED(uint8_t red, uint8_t green, uint8_t blue)
+{
+	u8g_i2c_start((0x60 << 1) | I2C_WRITE);
+	u8g_i2c_send_byte(0x02);
+	u8g_i2c_send_byte(green);
+	u8g_i2c_send_byte(0x03);
+	u8g_i2c_send_byte(red);
+	u8g_i2c_send_byte(0x04);
+	u8g_i2c_send_byte(blue);
+	u8g_i2c_stop();
+
+}
+
+#if BEEPER_TYPE==3
+void UIDisplay::olp_beep(uint8_t type)
+{
+	u8g_i2c_start((0x60 << 1) | I2C_WRITE);
+	u8g_i2c_send_byte(0x09);
+	u8g_i2c_send_byte(type);
+	u8g_i2c_stop();
+
+}
+#endif
+
 
 void UIDisplay::printRowP(uint8_t r,PGM_P txt)
 {
@@ -1849,8 +1893,11 @@ void UIDisplay::setStatusP(PGM_P txt,bool error)
         statusMsg[i++] = c;
     }
     statusMsg[i]=0;
-    if(error)
-        Printer::setUIErrorMessage(true);
+	if (error) {
+		Printer::setUIErrorMessage(true);
+		UIDisplay::rgbLED(0xFF, 0x20, 0x20);
+	}
+        
 }
 void UIDisplay::setStatus(const char *txt,bool error)
 {
@@ -1859,8 +1906,12 @@ void UIDisplay::setStatus(const char *txt,bool error)
     while(*txt && i<20)
         statusMsg[i++] = *txt++;
     statusMsg[i]=0;
-    if(error)
-        Printer::setUIErrorMessage(true);
+	if (error)
+	{
+		Printer::setUIErrorMessage(true);
+		UIDisplay::rgbLED(0xFF, 0x20, 0x20);
+	}
+        
 }
 
 const UIMenu * const ui_pages[UI_NUM_PAGES] PROGMEM = UI_PAGES;
