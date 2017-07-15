@@ -1655,6 +1655,8 @@ Always hard to say since the other angle is 89° in this case!
 #define CASE_LIGHTS_PIN -1
 #define CASE_LIGHT_DEFAULT_ON 1
 
+#define OLP_LED true // option to enable use of LEDs on Overlord
+
 /** Set to false to disable SD support: */
 #ifndef SDSUPPORT  // Some boards have SD support on board. These define the values already in pins.h
 #define SDSUPPORT true

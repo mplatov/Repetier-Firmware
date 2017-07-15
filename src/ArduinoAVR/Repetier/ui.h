@@ -666,7 +666,10 @@ class UIDisplay {
 #endif
     char cwd[SD_MAX_FOLDER_DEPTH * LONG_FILENAME_LENGTH + 2];
     uint8_t folderLevel;
+#if defined(OLP_LED)	
 	static void rgbLED(uint8_t red, uint8_t green, uint8_t blue);
+	bool ledDimmed;
+#endif
 #if BEEPER_TYPE==3	
 	static void olp_beep(uint8_t type);
 #endif

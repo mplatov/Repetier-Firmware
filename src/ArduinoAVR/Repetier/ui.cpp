@@ -973,8 +973,10 @@ void initializeLCD()
 	u8g_InitI2C(&u8g,&u8g_dev_sh1106_128x64_i2c,U8G_I2C_OPT_FAST);
 	
 	u8g_i2c_init(U8G_I2C_OPT_FAST);
-	
-	UIDisplay::rgbLED(0x1F, 0x2F, 0x2F);
+
+#ifdef OLP_LED	
+	UIDisplay::rgbLED(48,48,60);
+#endif
 
 #endif
 #ifdef U8GLIB_KS0108_FAST
@@ -1160,6 +1162,7 @@ void  UIDisplay::waitForKey()
     }
 }
 
+#ifdef OLP_LED	
 void UIDisplay::rgbLED(uint8_t red, uint8_t green, uint8_t blue)
 {
 	u8g_i2c_start((0x60 << 1) | I2C_WRITE);
@@ -1170,8 +1173,8 @@ void UIDisplay::rgbLED(uint8_t red, uint8_t green, uint8_t blue)
 	u8g_i2c_send_byte(0x04);
 	u8g_i2c_send_byte(blue);
 	u8g_i2c_stop();
-
 }
+#endif
 
 #if BEEPER_TYPE==3
 void UIDisplay::olp_beep(uint8_t type)
@@ -1649,8 +1652,12 @@ void UIDisplay::parse(const char *txt,bool ram)
             break;
         case 'l':
             if(c2 == 'a') addInt(lastAction,4);
+#if defined(OLP_LED)
+            else if(c2 == 'o') addStringOnOff(!ledDimmed);        // Lights on/off
+#else
 #if defined(CASE_LIGHTS_PIN) && CASE_LIGHTS_PIN >= 0
             else if(c2 == 'o') addStringOnOff(READ(CASE_LIGHTS_PIN));        // Lights on/off
+#endif
 #endif
 #if FEATURE_AUTOLEVEL
             else if(c2 == 'l') addStringOnOff((Printer::isAutolevelActive()));        // Autolevel on/off
@@ -2084,7 +2091,9 @@ void UIDisplay::setStatusP(PGM_P txt,bool error)
     statusMsg[i]=0;
 	if (error) {
 		Printer::setUIErrorMessage(true);
+#ifdef OLP_LED	
 		UIDisplay::rgbLED(0xFF, 0x20, 0x20);
+#endif
 	}
         
 }
@@ -2098,7 +2107,9 @@ void UIDisplay::setStatus(const char *txt,bool error)
 	if (error)
 	{
 		Printer::setUIErrorMessage(true);
+#ifdef OLP_LED
 		UIDisplay::rgbLED(0xFF, 0x20, 0x20);
+#endif
 	}
         
 }
@@ -3098,7 +3109,7 @@ bool UIDisplay::nextPreviousAction(int16_t next, bool allowMoves)
     if(mtype == UI_MENU_TYPE_MODIFICATION_MENU || mtype == UI_MENU_TYPE_WIZARD) action = pgm_read_word(&(men->id));
     else action = activeAction;
     int16_t increment = next;
-    EVENT_START_NEXTPREVIOUS(action,increment);
+    EVENT_START_NEXTPREVIOUS(action,increment);	
     switch(action)
     {
     case UI_ACTION_FANSPEED:
@@ -3679,11 +3690,26 @@ int UIDisplay::executeAction(unsigned int action, bool allowMoves)
             }
 #endif
             break;
+#if defined(OLP_LED)
+		case UI_ACTION_LIGHTS_ONOFF:
+			if (!Printer::isUIErrorMessage()){
+				ledDimmed = !ledDimmed;
+				if (ledDimmed){
+					UIDisplay::rgbLED(0,0,0);
+				}
+				else {
+					UIDisplay::rgbLED(48,48,60);
+				}
+				UI_STATUS_F(Com::translatedF(UI_TEXT_LIGHTS_ONOFF_ID));
+			}
+			break;
+#else
 #if CASE_LIGHTS_PIN >= 0
         case UI_ACTION_LIGHTS_ONOFF:
             TOGGLE(CASE_LIGHTS_PIN);
 #ifdef CASE_LIGHTS2_PIN
             TOGGLE(CASE_LIGHTS2_PIN);
+#endif
 #endif
             Printer::reportCaseLightStatus();
             UI_STATUS_F(Com::translatedF(UI_TEXT_LIGHTS_ONOFF_ID));
