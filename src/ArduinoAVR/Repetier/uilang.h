@@ -98,7 +98,7 @@
 #define LANGUAGE_FI_ID 11
 
 #define NUM_LANGUAGES_KNOWN 12
-#define NUM_TRANSLATED_WORDS 311
+#define NUM_TRANSLATED_WORDS 313
 
 // For selectable translations we refer to each text by a id which gets
 // defined here. The list starts at 0 and defines the position in the
@@ -310,7 +310,7 @@
 #define UI_TEXT_STOP_PRINT_ID 201 // "Stop Print"
 #define UI_TEXT_Z_BABYSTEPPING_ID 202 // "Z Babystep.:%oYmm"
 #define UI_TEXT_CHANGE_FILAMENT_ID 203 // "Change filament"
-#define UI_TEXT_WIZ_CH_FILAMENT1_ID 204 // "Change filament"
+#define UI_TEXT_WIZ_CH_FILAMENT1_ID 204 // "Remove filament"
 #define UI_TEXT_WIZ_CH_FILAMENT2_ID 205 // "Rotate to move"
 #define UI_TEXT_WIZ_CH_FILAMENT3_ID 206 // "filament up/down"
 #define UI_TEXT_CLICK_DONE_ID 207 // "Click when done"
@@ -418,6 +418,8 @@
 #define UI_TEXT_MAINPAGE6_4_C_ID 308 //""Mul: %om%%% Laser %op W"
 #define UI_TEXT_MAINPAGE6_4_L_ID 309 //""Mul: %om%%% Spindle %opRPM"
 #define UI_TEXT_JAMCONTROL_ID 310 // "%ej Jam Control
+#define UI_TEXT_EXTRUDER_COLD_ERROR_ID 311 // "Extruder too cold"
+#define UI_TEXT_WIZ_CH_FILAMENT4_ID 312 // Insert filament
 // Universal definitions
 
 #define UI_TEXT_SEL              cSEL
@@ -635,7 +637,7 @@
 #define UI_TEXT_STOP_PRINT_EN "Stop Print"
 #define UI_TEXT_Z_BABYSTEPPING_EN "Z babystep.:%oYmm"
 #define UI_TEXT_CHANGE_FILAMENT_EN "Change filament"
-#define UI_TEXT_WIZ_CH_FILAMENT1_EN "Change filament"
+#define UI_TEXT_WIZ_CH_FILAMENT1_EN "Remove filament 1/2"
 #define UI_TEXT_WIZ_CH_FILAMENT2_EN "Rotate to move"
 #define UI_TEXT_WIZ_CH_FILAMENT3_EN "filament up/down"
 #define UI_TEXT_CLICK_DONE_EN "Click when done"
@@ -760,6 +762,8 @@
 #define UI_TEXT_MAINPAGE6_4_L_EN "Mul: %om%%%    Las:%op W"
 #define UI_TEXT_MAINPAGE6_4_C_EN "Mul: %om%%%    Spi:%opRPM "
 #define UI_TEXT_JAMCONTROL_EN "%ej Jam Control"
+#define UI_TEXT_EXTRUDER_COLD_EN "Extruder too cold"
+#define UI_TEXT_WIZ_CH_FILAMENT4_EN "Insert filament 2/2"
 
 // *************** German translation ****************
 
@@ -970,7 +974,7 @@
 #define UI_TEXT_STOP_PRINT_DE "Druck abbrechen"
 #define UI_TEXT_Z_BABYSTEPPING_DE "Z Babyschr.:%oYmm"
 #define UI_TEXT_CHANGE_FILAMENT_DE "Filamentwechsel"
-#define UI_TEXT_WIZ_CH_FILAMENT1_DE "Filamentwechsel:"
+#define UI_TEXT_WIZ_CH_FILAMENT1_DE "Filamentwechsel 1/2"
 #define UI_TEXT_WIZ_CH_FILAMENT2_DE "Zum man. f" STR_ouml "rdern"
 #define UI_TEXT_WIZ_CH_FILAMENT3_DE "Men" STR_uuml "knopf drehen"
 #define UI_TEXT_CLICK_DONE_DE "Weiter mit Klick"
@@ -995,6 +999,8 @@
 #define UI_TEXT_CUSTOM_DE "Individuell"
 #define UI_TEXT_COATING_CUSTOM_DE "Indiv.:%BCmm"
 #define UI_TEXT_LANGUAGE_DE "Sprache"
+#define UI_TEXT_EXTRUDER_COLD_DE "Extruder zu kalt"
+#define UI_TEXT_WIZ_CH_FILAMENT4_DE "Filamentwechsel 2/2"
 
 #if NUM_EXTRUDER > 2 || MIXING_EXTRUDER != 0
 #define UI_TEXT_MAINPAGE6_1_DE "\xa %ec/%Ec\xb0 X:%x0"
@@ -1307,7 +1313,7 @@
 #define UI_TEXT_STOP_PRINT_NL "Stop Print"
 #define UI_TEXT_Z_BABYSTEPPING_NL "Z Babystep.:%oYmm"
 #define UI_TEXT_CHANGE_FILAMENT_NL "Ruil filament"
-#define UI_TEXT_WIZ_CH_FILAMENT1_NL "Ruil filament:"
+#define UI_TEXT_WIZ_CH_FILAMENT1_NL "Ruil filament 1/2"
 #define UI_TEXT_WIZ_CH_FILAMENT2_NL "Draaien voor"
 #define UI_TEXT_WIZ_CH_FILAMENT3_NL "filament op/omlaag"
 #define UI_TEXT_CLICK_DONE_NL "Verder met klik"
@@ -1432,6 +1438,8 @@
 #define UI_TEXT_MAINPAGE6_4_L_NL "Mul: %om%%%    Las:%op W"
 #define UI_TEXT_MAINPAGE6_4_C_NL "Mul: %om%%%    Spi:%opRPM "
 #define UI_TEXT_JAMCONTROL_NL "%ej Jam Control"
+#define UI_TEXT_EXTRUDER_COLD_NL "Extruder zu kalt"
+#define UI_TEXT_WIZ_CH_FILAMENT4_NL "Ruil filament 2/2"
 
 // *************** Brazilian portuguese translation ****************
 
@@ -1644,7 +1652,7 @@
 #define UI_TEXT_STOP_PRINT_PT "Parar impressao"
 #define UI_TEXT_Z_BABYSTEPPING_PT "Z babystep.:%oYmm"
 #define UI_TEXT_CHANGE_FILAMENT_PT "Alterar filamento"
-#define UI_TEXT_WIZ_CH_FILAMENT1_PT "Alterar filamento"
+#define UI_TEXT_WIZ_CH_FILAMENT1_PT "Alterar filamento 1/2"
 #define UI_TEXT_WIZ_CH_FILAMENT2_PT "Gire para mover"
 #define UI_TEXT_WIZ_CH_FILAMENT3_PT "filamento cima/baixo"
 #define UI_TEXT_CLICK_DONE_PT "Clique quando feito"
@@ -1769,6 +1777,9 @@
 #define UI_TEXT_MAINPAGE6_4_L_PT "Mul: %om%%%    Las:%op W"
 #define UI_TEXT_MAINPAGE6_4_C_PT "Mul: %om%%%    Spi:%opRPM "
 #define UI_TEXT_JAMCONTROL_PT "%ej Jam Control"
+#define UI_TEXT_EXTRUDER_COLD_PT "Extrusora muito fria"
+#define UI_TEXT_WIZ_CH_FILAMENT4_PT "Alterar filamento 2/2"
+
 
 // *************** Italian translation ****************
 
@@ -1979,7 +1990,7 @@
 #define UI_TEXT_STOP_PRINT_IT "Arresto Stampa"
 #define UI_TEXT_Z_BABYSTEPPING_IT "Z Babystep.:%oYmm"
 #define UI_TEXT_CHANGE_FILAMENT_IT "Cambia filamento"
-#define UI_TEXT_WIZ_CH_FILAMENT1_IT "Cambia filamento"
+#define UI_TEXT_WIZ_CH_FILAMENT1_IT "Cambia filamento 1/2"
 #define UI_TEXT_WIZ_CH_FILAMENT2_IT "Ruotare per spostare"
 #define UI_TEXT_WIZ_CH_FILAMENT3_IT "filamento su/giu"
 #define UI_TEXT_CLICK_DONE_IT "Clicca quando fatto"
@@ -2104,6 +2115,8 @@
 #define UI_TEXT_MAINPAGE6_4_L_IT "Mul: %om%%%    Las:%op W"
 #define UI_TEXT_MAINPAGE6_4_C_IT "Mul: %om%%%    Spi:%opRPM "
 #define UI_TEXT_JAMCONTROL_IT "%ej Jam Control"
+#define UI_TEXT_EXTRUDER_COLD_IT "Estrusore troppo freddo"
+#define UI_TEXT_WIZ_CH_FILAMENT4_IT "Cambia filamento 2/2"
 
 // Spanish translation
 
@@ -2314,7 +2327,7 @@
 #define UI_TEXT_STOP_PRINT_ES "Detener impresion"
 #define UI_TEXT_Z_BABYSTEPPING_ES "Z Babystep.:%oYmm"
 #define UI_TEXT_CHANGE_FILAMENT_ES "Cambio filamento"
-#define UI_TEXT_WIZ_CH_FILAMENT1_ES "Cambio filamento"
+#define UI_TEXT_WIZ_CH_FILAMENT1_ES "Cambio filamento 1/2"
 #define UI_TEXT_WIZ_CH_FILAMENT2_ES "Gire para mover"
 #define UI_TEXT_WIZ_CH_FILAMENT3_ES "fil. arriba/abajo"
 #define UI_TEXT_CLICK_DONE_ES "Clic cuando se hace"
@@ -2439,6 +2452,8 @@
 #define UI_TEXT_MAINPAGE6_4_L_ES "Mul: %om%%%    Las:%op W"
 #define UI_TEXT_MAINPAGE6_4_C_ES "Mul: %om%%%    Spi:%opRPM "
 #define UI_TEXT_JAMCONTROL_ES "%ej Jam Control"
+#define UI_TEXT_EXTRUDER_COLD_ES "Extrusora demasiado fría"
+#define UI_TEXT_WIZ_CH_FILAMENT4_ES "Cambio filamento 2/2"
 
 
 // *************** Swedish translation ****************
@@ -2651,7 +2666,7 @@
 #define UI_TEXT_STOP_PRINT_SE "Stopp trycket"
 #define UI_TEXT_Z_BABYSTEPPING_SE "Z babystep.:%oYmm"
 #define UI_TEXT_CHANGE_FILAMENT_SE "" STR_Auml "ndra filamentet"
-#define UI_TEXT_WIZ_CH_FILAMENT1_SE "" STR_Auml "ndra filamentet"
+#define UI_TEXT_WIZ_CH_FILAMENT1_SE "" STR_Auml "ndra filamentet 1/2"
 #define UI_TEXT_WIZ_CH_FILAMENT2_SE "Rotera att flytta"
 #define UI_TEXT_WIZ_CH_FILAMENT3_SE "filamentet upp/ner"
 #define UI_TEXT_CLICK_DONE_SE "Klicka n" STR_auml "r du " STR_auml "r klar"
@@ -2778,6 +2793,9 @@
 #define UI_TEXT_MAINPAGE6_4_L_SE "Mul: %om%%%    Las:%op W"
 #define UI_TEXT_MAINPAGE6_4_C_SE "Mul: %om%%%    Spi:%opRPM "
 #define UI_TEXT_JAMCONTROL_SE "%ej Jam Control"
+#define UI_TEXT_EXTRUDER_COLD_SE "Extruder för kallt"
+#define UI_TEXT_WIZ_CH_FILAMENT4_SE ""STR_Auml "ndra filamentet 2/2"
+
 
 
 // *************** French translation ****************
@@ -2990,7 +3008,7 @@
 #define UI_TEXT_STOP_PRINT_FR          "Arret Impress."
 #define UI_TEXT_Z_BABYSTEPPING_FR "Z Babystep.:%oYmm"
 #define UI_TEXT_CHANGE_FILAMENT_FR "Changement Filament"
-#define UI_TEXT_WIZ_CH_FILAMENT1_FR "Changement Filament"
+#define UI_TEXT_WIZ_CH_FILAMENT1_FR "Changement Filament 1/2"
 #define UI_TEXT_WIZ_CH_FILAMENT2_FR "Tournez Deplacer"
 #define UI_TEXT_WIZ_CH_FILAMENT3_FR "Filament haut/bas"
 #define UI_TEXT_CLICK_DONE_FR 		"Continuer avec Clic"
@@ -3115,6 +3133,9 @@
 #define UI_TEXT_MAINPAGE6_4_L_FR "Mul: %om%%%    Las:%op W"
 #define UI_TEXT_MAINPAGE6_4_C_FR "Mul: %om%%%    Spi:%opRPM "
 #define UI_TEXT_JAMCONTROL_FR "%ej Jam Control"
+#define UI_TEXT_EXTRUDER_COLD_FR "L'extrudeuse trop froide"
+#define UI_TEXT_WIZ_CH_FILAMENT4_FR "Changement Filament 2/2"
+
 
 // *************** Czech translation ****************
 // ***************      By Majkl     ****************
@@ -3328,7 +3349,7 @@
 #define UI_TEXT_STOP_PRINT_CZ "Zastavit tisk"
 #define UI_TEXT_Z_BABYSTEPPING_CZ "Z babystep.:%oYmm"
 #define UI_TEXT_CHANGE_FILAMENT_CZ "Zmena filament"
-#define UI_TEXT_WIZ_CH_FILAMENT1_CZ "Zmena filament"
+#define UI_TEXT_WIZ_CH_FILAMENT1_CZ "Zmena filament 1/2"
 #define UI_TEXT_WIZ_CH_FILAMENT2_CZ "Otocit se pohybovat"
 #define UI_TEXT_WIZ_CH_FILAMENT3_CZ "vlaken nahoru/dolu"
 #define UI_TEXT_CLICK_DONE_CZ "Pokr. s cvaknutim"
@@ -3453,6 +3474,9 @@
 #define UI_TEXT_MAINPAGE6_4_L_CZ "Mul: %om%%%    Las:%op W"
 #define UI_TEXT_MAINPAGE6_4_C_CZ "Mul: %om%%%    Spi:%opRPM "
 #define UI_TEXT_JAMCONTROL_CZ "%ej Jam Control"
+#define UI_TEXT_EXTRUDER_COLD_CZ "Extruder je příliš chladný"
+#define UI_TEXT_WIZ_CH_FILAMENT4_CZ "Zmena filament 2/2"
+
 
 // *************** Polish translation ****************
 // ***************       By MIS       ****************
@@ -3665,7 +3689,7 @@
 #define UI_TEXT_STOP_PRINT_PL       "Przerwij wydruk"
 #define UI_TEXT_Z_BABYSTEPPING_PL   "Doreguluj Z:%oYmm"
 #define UI_TEXT_CHANGE_FILAMENT_PL  "Zmiana filamentu"
-#define UI_TEXT_WIZ_CH_FILAMENT1_PL "Zmien filament"
+#define UI_TEXT_WIZ_CH_FILAMENT1_PL "Zmien filament 1/2"
 #define UI_TEXT_WIZ_CH_FILAMENT2_PL "Krec aby przesuwac"
 #define UI_TEXT_WIZ_CH_FILAMENT3_PL "filament w gore/dol"
 #define UI_TEXT_CLICK_DONE_PL       "Kliknij jak gotowe"
@@ -3789,6 +3813,9 @@
 #define UI_TEXT_MAINPAGE6_4_L_PL "Mul: %om%%%    Las:%op W"
 #define UI_TEXT_MAINPAGE6_4_C_PL "Mul: %om%%%    Spi:%opRPM "
 #define UI_TEXT_JAMCONTROL_PL "%ej Jam Control"
+#define UI_TEXT_EXTRUDER_COLD_PL "Wytłaczarka jest za zimna"
+#define UI_TEXT_WIZ_CH_FILAMENT4_PL "Zmien filament 2/2"
+
 
 // Türk
 
@@ -3999,7 +4026,7 @@
 #define UI_TEXT_STOP_PRINT_TR "Yazdirmayi durdur"
 #define UI_TEXT_Z_BABYSTEPPING_TR "Z Babystep.:%oYmm"
 #define UI_TEXT_CHANGE_FILAMENT_TR "Filament degistir"
-#define UI_TEXT_WIZ_CH_FILAMENT1_TR "Filament degistir"
+#define UI_TEXT_WIZ_CH_FILAMENT1_TR "Filament degistir 1/2"
 #define UI_TEXT_WIZ_CH_FILAMENT2_TR "Filameti yukari asagi"
 #define UI_TEXT_WIZ_CH_FILAMENT3_TR "almak icin cevirin"
 #define UI_TEXT_CLICK_DONE_TR "Tamamlandiginda butona basin"
@@ -4122,6 +4149,9 @@
 #define UI_TEXT_MAINPAGE6_4_L_TR "Mul: %om%%%    Las:%op W"
 #define UI_TEXT_MAINPAGE6_4_C_TR "Mul: %om%%%    Spi:%opRPM "
 #define UI_TEXT_JAMCONTROL_TR "%ej Jam Control"
+#define UI_TEXT_EXTRUDER_COLD_TR "Extruder çok soğuk"
+#define UI_TEXT_WIZ_CH_FILAMENT4_TR "Filament degistir 2/2"
+
 
 // *************** Finnish translation ****************
 // ********** By Matti Granstedt 28.01.2016 ***********
@@ -4333,7 +4363,7 @@
 #define UI_TEXT_STOP_PRINT_FI "Lopeta tulostus"
 #define UI_TEXT_Z_BABYSTEPPING_FI "Z mikroaskellus:%oYmm"
 #define UI_TEXT_CHANGE_FILAMENT_FI "Vaihda tulostuslanka"
-#define UI_TEXT_WIZ_CH_FILAMENT1_FI "Vaihda tulostuslanka"
+#define UI_TEXT_WIZ_CH_FILAMENT1_FI "Vaihda tulostuslanka 1/2"
 #define UI_TEXT_WIZ_CH_FILAMENT2_FI "Py" STR_ouml "rit" STR_auml " siirr" STR_auml ""
 #define UI_TEXT_WIZ_CH_FILAMENT3_FI "Tul.lanka yl" STR_ouml "s/alas"
 #define UI_TEXT_CLICK_DONE_FI "Klik kun valmis"
@@ -4458,6 +4488,9 @@
 #define UI_TEXT_MAINPAGE6_4_L_FI "Mul: %om%%%    Las:%op W"
 #define UI_TEXT_MAINPAGE6_4_C_FI "Mul: %om%%%    Spi:%opRPM "
 #define UI_TEXT_JAMCONTROL_FI "%ej Jam Control"
+#define UI_TEXT_EXTRUDER_COLD_FI "Ekstruuderi on liian kylmä"
+#define UI_TEXT_WIZ_CH_FILAMENT4_FI "Vaihda tulostuslanka 2/2"
+
 
 #define TRANS(x) UI_STRING(F ## x,x)
 #ifdef CUSTOM_TRANSLATIONS

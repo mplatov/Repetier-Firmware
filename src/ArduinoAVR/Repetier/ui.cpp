@@ -2716,6 +2716,9 @@ void UIDisplay::showMessage(int id) {
         case 4:
             uid.pushMenu(&ui_msg_slipping,true);
             break;
+		case 5:
+			uid.pushMenu(&ui_msg_filamentchange_not_heated,true);
+			break;
     }
 }    
 
@@ -2841,7 +2844,15 @@ int UIDisplay::okAction(bool allowMoves)
         switch(action)
         {
 #if FEATURE_RETRACTION
-        case UI_ACTION_WIZARD_FILAMENTCHANGE: // filament change is finished
+		case UI_ACTION_WIZARD_FILAMENTCHANGE:
+		{
+			popMenu(false);
+			Extruder::current->retractDistance(-FILAMENTCHANGE_LONGRETRACT);
+			Extruder::current->retractDistance(-FILAMENTCHANGE_SHORTRETRACT);
+			pushMenu(&ui_wiz_filamentchange_insert, true);
+			break;
+		}
+        case UI_ACTION_WIZARD_FILAMENTCHANGE_INSERT: // filament change is finished
 			{
 //            BEEP_SHORT;
             popMenu(true);
@@ -3202,7 +3213,12 @@ ZPOS2:
         Commands::printCurrentPosition();
         break;
 #if FEATURE_RETRACTION
-    case UI_ACTION_WIZARD_FILAMENTCHANGE: // filament change is finished
+    case UI_ACTION_WIZARD_FILAMENTCHANGE: // filament change next/previous action
+        Extruder::current->retractDistance(-increment);
+        Commands::waitUntilEndOfAllMoves();
+        Extruder::current->disableCurrentExtruderMotor();
+        break;
+    case UI_ACTION_WIZARD_FILAMENTCHANGE_INSERT: // filament change next/previous action
         Extruder::current->retractDistance(-increment);
         Commands::waitUntilEndOfAllMoves();
         Extruder::current->disableCurrentExtruderMotor();
@@ -4003,9 +4019,15 @@ int UIDisplay::executeAction(unsigned int action, bool allowMoves)
             break;
 #endif
 #if FEATURE_RETRACTION
-        case UI_ACTION_WIZARD_FILAMENTCHANGE:
+        case UI_ACTION_WIZARD_FILAMENTCHANGE: // exectute action
         {
-            popMenu(false);
+#if NUM_EXTRUDER > 0
+		    if(Printer::debugDryrun() || (MIN_EXTRUDER_TEMP > 30 && Extruder::current->tempControl.currentTemperatureC < MIN_EXTRUDER_TEMP && !Printer::isColdExtrusionAllowed() && Extruder::current->tempControl.sensorType != 0)){
+				UI_MESSAGE(5);
+				break;
+		    }
+#endif
+//            popMenu(false);
             if(Printer::isBlockingReceive()) break;
             Printer::setJamcontrolDisabled(true);
             Com::printFLN(PSTR("important: Filament change required!"));
@@ -4029,6 +4051,8 @@ int UIDisplay::executeAction(unsigned int action, bool allowMoves)
             Extruder::current->disableCurrentExtruderMotor();
         }
         break;
+		case UI_ACTION_WIZARD_FILAMENTCHANGE_INSERT:
+			break;
 #if EXTRUDER_JAM_CONTROL
         case UI_ACTION_WIZARD_JAM_EOF:
         {

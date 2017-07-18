@@ -306,6 +306,7 @@
 #define UI_ACTION_WIZARD_JAM_REHEAT      5001
 #define UI_ACTION_WIZARD_JAM_WAITHEAT    5002
 #define UI_ACTION_WIZARD_JAM_EOF         5003
+#define UI_ACTION_WIZARD_FILAMENTCHANGE_INSERT  5004
 
 // Load basic language definition to make sure all values are defined
 //#include "uilang.h"
