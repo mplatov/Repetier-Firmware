@@ -22,11 +22,11 @@ Repetier firmware works with PC-based printer control software - [Repetier Host]
 
 ### Printer configuration options for Repetier Host
 Here are the important ones:
-Baudrate 250000
-Dimension X=0, Y=0, Z=MAX 
-Printer Type: Delta Printer
-Diameter: 170mm
-Height: 260mm
+- Baudrate 250000
+- Dimension X=0, Y=0, Z=MAX 
+- Printer Type: Delta Printer
+- Diameter: 170mm
+- Height: 260mm
 
 ### Slicing software
 To make printable g-code file from .stl file you need a slicer. You can either keep using Cura slicer or use some [other slicer](http://slic3r.org/). If you want to keep using Cura make sure to change g-code flavor setting to RepRap. 
