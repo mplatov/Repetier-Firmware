@@ -1,5 +1,5 @@
 # Repetier-Firmware for Overlord Pro 3D printer
-This is a fork of Repetier firmware for Overlord Pro 3D printer. It’s based on the earlier fork [by Jay](https://github.com/jayz28/Repetier-Firmware-OLP) applied to the more recent version of the upstream Repetier firmware. This is firmware is not official and may have bugs. Keep that in mind and use it on your own risk!
+This is a fork of Repetier firmware for Overlord Pro 3D printer. It’s based on the earlier fork by [Jay](https://github.com/jayz28/Repetier-Firmware-OLP) applied to the more recent version of the upstream Repetier firmware. This is firmware is not official and may have bugs. Keep that in mind and use it on your own risk!
 
 ## How it differs from the official firmware
 * Z height, end stop, towers angle correction 
@@ -15,7 +15,7 @@ Also it should be noted that this firmware  official firmware has features that 
 
 ## How to update
 You can ether compile it yourself using Arduino software (use development_olp branch) or grab a binary from the releases page (starting with version 0.92.9, older ones are from upstream repetier and are not supposed to run Overlord) and flash it with Cura via USB connection. Released binaries are made for machines with 12V heaters (earlier Kickstarter machines). Same firmware should work for machines with 24V heaters, but you'll need to adjust Extruder 1 Max PID value to 255 (default value is 160). Don't do that if you have 12V heater or you not sure which heater you have because it may damage your heater!
-After flashing the firmware for the first make sure to calibrate your Z-height (http://www.dreammaker.cc/forum/viewtopic.php?f=6&t=163) and level the bed.
+After flashing the firmware for the first make sure to [calibrate your Z-height](http://www.dreammaker.cc/forum/viewtopic.php?f=6&t=163) and level the bed.
 
 ### Getting started
 Repetier firmware works with PC-based printer control software - [Repetier Host](https://www.repetier.com/). You can use it or other similar software(such as [Pronterface](www.pronterface.com/)). This PC-software is useful for configuration (e.g. for leveling configuration and EEPROM changes), but it's not strictly required. You can print from SD card and even adjust some EEPROM values from the LCD menu.
