@@ -60,6 +60,28 @@ Is called every 100ms.
 */
 static uint8_t extruderTempErrors = 0;
 
+#if HEATED_BED_AND_EXTRUDER_PID_MAX
+uint8_t Extruder::dynamicHeatingBedCap(uint8_t pidMax)
+{
+	int16_t ivalue = HEATED_BED_AND_EXTRUDER_PID_MAX;
+	int16_t sub = 0;
+
+	for(uint8_t i = 0; i < NUM_EXTRUDER; i++)
+    {
+        TemperatureController *c = tempController[i];
+		if (pwm_pos[c->pwmIndex] < ivalue){
+			sub += pwm_pos[c->pwmIndex];
+		}				        
+    }
+	if (sub > 0 && HEATED_BED_AND_EXTRUDER_PID_MAX > sub){
+		return HEATED_BED_AND_EXTRUDER_PID_MAX - sub;
+	}
+	else {
+		return pidMax;
+	}
+}
+#endif
+
 void Extruder::manageTemperatures()
 {
     Com::writeToAll = true;
@@ -265,7 +287,13 @@ void Extruder::manageTemperatures()
         }
         else if(error > PID_CONTROL_RANGE) // Phase 1: full heating until control range reached
         {
-            output = act->pidMax;
+			uint8_t _pidMax = act->pidMax;
+#if HEATED_BED_AND_EXTRUDER_PID_MAX
+			if (controller == HEATED_BED_INDEX){ // this controller is for the heated bed
+				_pidMax = dynamicHeatingBedCap(_pidMax);
+			}
+#endif			
+            output = _pidMax;
             act->startFullDecouple(time);
         }
         else if(error < -PID_CONTROL_RANGE) // control range left upper side!
@@ -283,7 +311,14 @@ void Extruder::manageTemperatures()
 #if SCALE_PID_TO_MAX == 1
                 pidTerm = (pidTerm * act->pidMax) * 0.0039215;
 #endif // SCALE_PID_TO_MAX
-                output = constrain((int)pidTerm, 0, act->pidMax);
+
+				uint8_t _pidMax = act->pidMax;
+#if HEATED_BED_AND_EXTRUDER_PID_MAX
+				if (controller == HEATED_BED_INDEX){ // this controller is for the heated bed
+					_pidMax = dynamicHeatingBedCap(_pidMax);
+				}
+#endif				
+                output = constrain((int)pidTerm, 0, _pidMax);
             }
             else if(act->heatManager == HTR_DEADTIME)     // dead-time control
             {

@@ -784,6 +784,20 @@ A good start is 30 lower then the optimal value. You need to leave room for cool
 #define HEATED_BED_PID_DGAIN 290
 // maximum time the heater can be switched on. Max = 255.  Overridden if EEPROM activated.
 #define HEATED_BED_PID_MAX 255
+
+/** \brief Shared PWM budget for extruder and heating bed.
+Normally there is not need to run both extruder and heating bed at full power, so some printer 
+vendors may ship printers with underpowered power supplies that can't handle them both 
+simultaneusly. This option is useful for this particular case as it dynamically limits max power
+available to the heating bed if extruder is running. The value should be defined as 
+HEATED_BED_AND_EXTRUDER_PID_MAX = EXT0_PID_MAX + EXT1_PID_MAX + X
+where X is maximum PWM value for heating bed when extruder is also running.
+setting HEATED_BED_AND_EXTRUDER_PID_MAX as HEATED_BED_PID_MAX is a good value to start. It
+could be decreased slowly if power supply continues to shut itself off when extruder and bed and 
+motors all run simultaneously.
+*/
+#define HEATED_BED_AND_EXTRUDER_PID_MAX 0	
+
 // Time to see a temp. change when fully heating. Consider that beds at higher temp. need longer to rise and cold
 // beds need some time to get the temp. to the sensor. Time is in milliseconds! Set 0 to disable
 #define HEATED_BED_DECOUPLE_TEST_PERIOD 300000
