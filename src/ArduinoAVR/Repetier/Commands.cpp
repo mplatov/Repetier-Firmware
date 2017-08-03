@@ -1825,7 +1825,7 @@ void Commands::processMCode(GCode *com) {
 #else
             Com::cap(PSTR("SOFTWARE_POWER:0"));
 #endif
-#if CASE_LIGHTS_PIN > -1
+#if CASE_LIGHTS_PIN > -1 || defined(OLP_LED)
             Com::cap(PSTR("TOGGLE_LIGHTS:1"));
 #else
             Com::cap(PSTR("TOGGLE_LIGHTS:0"));

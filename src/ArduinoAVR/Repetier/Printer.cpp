@@ -2148,13 +2148,32 @@ void Printer::zBabystep()
 }
 
 void Printer::setCaseLight(bool on) {
+#if defined(OLP_LED)
+	uid.ledDimmed = !on;
+	if (uid.ledDimmed){
+		UIDisplay::rgbLED(0,0,0);
+	}
+	else {
+		UIDisplay::rgbLED(48,48,60);
+	}	
+	reportCaseLightStatus();
+#else
 #if CASE_LIGHTS_PIN > -1
     WRITE(CASE_LIGHTS_PIN,on);
     reportCaseLightStatus();
 #endif
+#endif
 }
 
 void Printer::reportCaseLightStatus() {
+#if defined(OLP_LED)
+	if (uid.ledDimmed){
+		Com::printInfoFLN(PSTR("Case lights off"));
+	}
+	else {
+		Com::printInfoFLN(PSTR("Case lights on"));
+	}	
+#else	
 #if CASE_LIGHTS_PIN > -1
     if(READ(CASE_LIGHTS_PIN))
         Com::printInfoFLN(PSTR("Case lights on"));
@@ -2162,6 +2181,7 @@ void Printer::reportCaseLightStatus() {
         Com::printInfoFLN(PSTR("Case lights off"));
 #else
     Com::printInfoFLN(PSTR("No case lights"));
+#endif
 #endif
 }
 
@@ -2253,7 +2273,11 @@ void Printer::showConfiguration() {
 #endif
     Com::config(PSTR("SupportG10G11:"),FEATURE_RETRACTION);
     Com::config(PSTR("SupportLocalFilamentchange:"),FEATURE_RETRACTION);
+#if defined(OLP_LED)
+	Com::config(PSTR("CaseLights:"),true);
+#else
     Com::config(PSTR("CaseLights:"),CASE_LIGHTS_PIN > -1);
+#endif
     Com::config(PSTR("ZProbe:"),FEATURE_Z_PROBE);
     Com::config(PSTR("Autolevel:"),FEATURE_AUTOLEVEL);
     Com::config(PSTR("EEPROM:"),EEPROM_MODE != 0);
